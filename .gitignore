@@ -1,6 +1,4 @@
-/node_modules
-
 .DS_Store
+/node_modules
 /build
-yarn.lock
-client/yarn.lock
+/yarn.lock

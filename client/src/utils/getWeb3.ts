@@ -1,19 +1,19 @@
-import Web3 from "web3";
+import Web3 from 'web3';
 
 interface Window {
   ethereum: any;
-  web3: any;
+  web3: Web3;
   addEventListener: any;
 }
-declare var window: Window;
+declare const window: Window;
 
-export default() => 
+const getWeb3 = (): Promise<Web3> =>
   new Promise((resolve, reject) => {
     // Wait for loading completion to avoid race conditions with web3 injection timing.
-    window.addEventListener("load", async () => {
+    window.addEventListener('load', async () => {
       // Modern dapp browsers...
       if (window.ethereum) {
-        const web3: any = new Web3(window.ethereum);
+        const web3 = new Web3(window.ethereum);
         try {
           // Request account access if needed
           await window.ethereum.enable();
@@ -26,18 +26,20 @@ export default() =>
       // Legacy dapp browsers...
       else if (window.web3) {
         // Use Mist/MetaMask's provider.
-        const web3: any = window.web3;
-        console.log("Injected web3 detected.");
+        const web3 = window.web3;
+        console.log('Injected web3 detected.');
         resolve(web3);
       }
       // Fallback to localhost; use dev console port by default...
       else {
-        const provider: any = new Web3.providers.HttpProvider(
-          "http://127.0.0.1:9545"
+        const provider = new Web3.providers.HttpProvider(
+          'http://127.0.0.1:8545',
         );
-        const web3: any = new Web3(provider);
-        console.log("No web3 instance injected, using Local web3.");
+        const web3 = new Web3(provider);
+        console.log('No web3 instance injected, using Local web3.');
         resolve(web3);
       }
     });
   });
+
+export default getWeb3;

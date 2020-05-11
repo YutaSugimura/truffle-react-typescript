@@ -4,9 +4,9 @@ const HDWalletProvider = require("truffle-hdwallet-provider");
 
 // input
 const INFURAKEY = '';
-const MNEMONIC = '';
+const MNEMONIC = 'mnemonic';
 const GAS = 3000000;
-const GASPRICE = 5;
+const GASPRICE = 20;
 const SKIP_DRY_RUN = false;
 
 

@@ -1,80 +1,38 @@
-import React,{ useEffect, useReducer, useState } from 'react';
-import Contract from './contracts/SimpleStorage.json';
+import React, { useState, useEffect } from 'react';
 import './css/App.css';
-import getWeb3 from './utils/getWeb3';
+import { Contract } from 'web3-eth-contract';
+import json from './contracts/SimpleStorage.json';
+import useWeb3 from './hooks/web3';
 
-
-const initialState: any = {
-  accounts: [],
-  contract: {},
-  web3: {},
-};
-
-const reducer = (state: any, action: any) => ({
-  accounts: action.accounts,
-  contract: action.contract,
-  web3: action.web3,
-});
-
-const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const [value, setValue] = useState('none');
+function App() {
+  const { isLoading, isWeb3, web3, accounts } = useWeb3();
+  const [instance, setInstance] = useState<Contract>();
+  const [value, setValue] = useState('');
 
   useEffect(() => {
-    const init = async() => {
-      try {
-        // Get network provider and web3 instance.
-        const web3: any = await getWeb3();
-
-        // Use web3 to get the user's accounts.
-        const accounts: any = await web3.eth.getAccounts();
-
-        // Get the contract instance.
-        const networkId: number = await web3.eth.net.getId();
-        const deployedNetwork = Contract.networks[networkId];
+    (async() => {
+      if(web3 !== null) {
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = json.networks[3];
         const instance = new web3.eth.Contract(
-          Contract.abi,
-          deployedNetwork && deployedNetwork.address,
+          json.abi,
+          deployedNetwork && deployedNetwork.address
         );
-
-        // Set web3, accounts, and contract to the state, and then proceed with an
-        dispatch({
-          accounts,
-          contract: instance,
-          web3
-        });
-
-      } catch(error) {
-        // Catch any errors for any of the above operations.
-        alert(
-          `Failed to load web3, accounts, or contract. Check console for details.`,
-        );
-        console.error(error);
+        setInstance(instance);
       }
-    }
-    init();
-  }, []);
+    })();
+  }, [isLoading, isWeb3]);
 
-  // example of interacting with the contract's methods.
   const runExample = async() => {
-    const { contract, accounts }: any = state;
-
-    // Stores a given value, 'hello World' by default.
-    await contract.methods.set('hello World').send({ from: accounts[0] });
-
-    // Get the value from the contract to prove it worked.
-    const response: string = await contract.methods.get().call();
-
-    // Update state with the result.
+    await instance?.methods.set('hello World').send({ from: accounts[0]});
+    const response = await instance?.methods.get().call();
     setValue(response);
   }
 
   return (
     <div className="App">
-      {
-        !state.web3 ? <div>Loading Web3, accounts, and contract...</div>
-
-        :
+      { isLoading ? <div>Loading Web3, accounts, and contract...</div>
+      : isWeb3 ? 
         <>
           <h1>Good to Go!</h1>
           <p>Your Truffle Box is installed and ready.</p>
@@ -91,6 +49,9 @@ const App = () => {
           <p>Click here to run the contract↓</p>
           <button onClick={runExample} >click</button>
         </>
+        : <div>
+          <p>none web3</p>
+        </div>
       }
     </div>
   );
