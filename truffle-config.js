@@ -2,11 +2,14 @@ const path = require("path");
 const HDWalletProvider = require("truffle-hdwallet-provider");
 
 
-// input
+// Ethereum Provider
 const INFURAKEY = '';
+
+// Private Key
 const PRIVATEKEY = '';
+
 const GAS = 3000000;
-const GASPRICE = 20;
+const GASPRICE = 5;
 const SKIP_DRY_RUN = false;
 
 
@@ -61,11 +64,26 @@ module.exports = {
       host: '127.0.0.1',
       port: 7545,
       network_id: '*'
+    },
+    // Binance Smart Chain
+    bsc: {
+      provider: function() {
+        return new HDWalletProvider(PRIVATEKEY, 'https://bsc-dataseed.binance.org/')
+      },
+      network_id: 56,
+      kipDryRun: SKIP_DRY_RUN
+    },
+    bsc_test: {
+      provider: function() {
+        return new HDWalletProvider(PRIVATEKEY, 'https://data-seed-prebsc-1-s1.binance.org:8545/')
+      },
+      network_id: 97,
+      kipDryRun: SKIP_DRY_RUN
     }
   },
   compilers: {
     solc: {
-      version: "0.5.1",    // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.6.12",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
