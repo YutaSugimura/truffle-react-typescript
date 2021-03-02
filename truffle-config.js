@@ -1,12 +1,6 @@
 const path = require("path");
 const HDWalletProvider = require("truffle-hdwallet-provider");
-
-
-// Ethereum Provider
-const INFURAKEY = '';
-
-// Private Key
-const PRIVATEKEY = '';
+require('dotenv').config();
 
 const GAS = 3000000;
 const GASPRICE = 5;
@@ -18,7 +12,7 @@ module.exports = {
   networks: {
     ropsten: {
       provider: function() {
-        return new HDWalletProvider(PRIVATEKEY, "https://ropsten.infura.io/v3/" + INFURAKEY)
+        return new HDWalletProvider(process.env.PRIVATEKEY, "https://ropsten.infura.io/v3/" + process.env.INFURAKEY)
       },
       network_id: 3,
       gas: GAS,
@@ -27,7 +21,7 @@ module.exports = {
     },
     kovan: {
       provider: function() {
-        return new HDWalletProvider(PRIVATEKEY, "https://kovan.infura.io/v3/" + INFURAKEY)
+        return new HDWalletProvider(process.env.PRIVATEKEY, "https://kovan.infura.io/v3/" + process.env.INFURAKEY)
       },
       network_id: 42,
       gas: GAS,
@@ -36,7 +30,7 @@ module.exports = {
     },
     rinkeby: {
       provider: function() {
-        return new HDWalletProvider(PRIVATEKEY, "https://rinkeby.infura.io/v3/" + INFURAKEY)
+        return new HDWalletProvider(process.env.PRIVATEKEY, "https://rinkeby.infura.io/v3/" + process.env.INFURAKEY)
       },
       network_id: 4,
       gas: GAS,
@@ -45,7 +39,7 @@ module.exports = {
     },
     goerli: {
       provider: function() {
-        return new HDWalletProvider(PRIVATEKEY, "https://goerli.infura.io/v3/" + INFURAKEY)
+        return new HDWalletProvider(process.env.PRIVATEKEY, "https://goerli.infura.io/v3/" + process.env.INFURAKEY)
       },
       network_id: 4,
       gas: GAS,
@@ -54,7 +48,7 @@ module.exports = {
     },
     main: {
       provider: function() {
-        return new HDWalletProvider(PRIVATEKEY, "https://mainnet.infura.io/v3/" + INFURAKEY)
+        return new HDWalletProvider(process.env.PRIVATEKEY, "https://mainnet.infura.io/v3/" + process.env.INFURAKEY)
       },
       network_id: 1,
       gas: GAS,
@@ -68,14 +62,14 @@ module.exports = {
     // Binance Smart Chain
     bsc: {
       provider: function() {
-        return new HDWalletProvider(PRIVATEKEY, 'https://bsc-dataseed.binance.org/')
+        return new HDWalletProvider(process.env.PRIVATEKEY, 'https://bsc-dataseed.binance.org/')
       },
       network_id: 56,
       kipDryRun: SKIP_DRY_RUN
     },
     bsc_test: {
       provider: function() {
-        return new HDWalletProvider(PRIVATEKEY, 'https://data-seed-prebsc-1-s1.binance.org:8545/')
+        return new HDWalletProvider(process.env.PRIVATEKEY, 'https://data-seed-prebsc-1-s1.binance.org:8545/')
       },
       network_id: 97,
       kipDryRun: SKIP_DRY_RUN
