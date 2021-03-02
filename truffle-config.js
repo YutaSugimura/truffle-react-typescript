@@ -4,7 +4,7 @@ const HDWalletProvider = require("truffle-hdwallet-provider");
 
 // input
 const INFURAKEY = '';
-const MNEMONIC = 'mnemonic';
+const PRIVATEKEY = '';
 const GAS = 3000000;
 const GASPRICE = 20;
 const SKIP_DRY_RUN = false;
@@ -15,7 +15,7 @@ module.exports = {
   networks: {
     ropsten: {
       provider: function() {
-        return new HDWalletProvider(MNEMONIC, "https://ropsten.infura.io/v3/" + INFURAKEY)
+        return new HDWalletProvider(PRIVATEKEY, "https://ropsten.infura.io/v3/" + INFURAKEY)
       },
       network_id: 3,
       gas: GAS,
@@ -24,7 +24,7 @@ module.exports = {
     },
     kovan: {
       provider: function() {
-        return new HDWalletProvider(MNEMONIC, "https://kovan.infura.io/v3/" + INFURAKEY)
+        return new HDWalletProvider(PRIVATEKEY, "https://kovan.infura.io/v3/" + INFURAKEY)
       },
       network_id: 42,
       gas: GAS,
@@ -33,16 +33,25 @@ module.exports = {
     },
     rinkeby: {
       provider: function() {
-        return new HDWalletProvider(MNEMONIC, "https://rinkeby.infura.io/v3/" + INFURAKEY)
+        return new HDWalletProvider(PRIVATEKEY, "https://rinkeby.infura.io/v3/" + INFURAKEY)
       },
       network_id: 4,
       gas: GAS,
       gasPrice: 1000000000 * GASPRICE,
       skipDryRun: SKIP_DRY_RUN
     },
-    "live": {
+    goerli: {
       provider: function() {
-        return new HDWalletProvider(MNEMONIC, "https://mainnet.infura.io/v3/" + INFURAKEY)
+        return new HDWalletProvider(PRIVATEKEY, "https://goerli.infura.io/v3/" + INFURAKEY)
+      },
+      network_id: 4,
+      gas: GAS,
+      gasPrice: 1000000000 * GASPRICE,
+      skipDryRun: SKIP_DRY_RUN
+    },
+    main: {
+      provider: function() {
+        return new HDWalletProvider(PRIVATEKEY, "https://mainnet.infura.io/v3/" + INFURAKEY)
       },
       network_id: 1,
       gas: GAS,
