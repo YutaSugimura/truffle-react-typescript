@@ -1,6 +1,10 @@
 {
-  "dependencies": {
+  "scripts": {
+    "build": "waffle"
+  },
+  "devDependencies": {
     "dotenv": "^8.2.0",
+    "ethereum-waffle": "^3.3.0",
     "truffle-hdwallet-provider": "^1.0.17"
   }
 }
