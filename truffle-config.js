@@ -41,7 +41,7 @@ module.exports = {
       provider: function() {
         return new HDWalletProvider(process.env.PRIVATEKEY, "https://goerli.infura.io/v3/" + process.env.INFURAKEY)
       },
-      network_id: 4,
+      network_id: 5,
       gas: GAS,
       gasPrice: 1000000000 * GASPRICE,
       skipDryRun: SKIP_DRY_RUN
