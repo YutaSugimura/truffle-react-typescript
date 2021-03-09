@@ -83,6 +83,21 @@ module.exports = {
       gas: GAS,
       gasPrice: 1000000000 * GASPRICE,
       kipDryRun: SKIP_DRY_RUN
+    },
+    // polygon (matic)
+    matic: {
+      provider: () => new HDWalletProvider(process.env.PRIVATEKEY, `https://rpc-mainnet.maticvigil.com/`),
+      network_id: 137,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true
+    },
+    mumbai: {
+      provider: () => new HDWalletProvider(process.env.PRIVATEKEY, `https://rpc-mumbai.maticvigil.com/`),
+      network_id: 80001,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true
     }
   },
   compilers: {
