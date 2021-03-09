@@ -73,6 +73,16 @@ module.exports = {
       },
       network_id: 97,
       kipDryRun: SKIP_DRY_RUN
+    },
+    // xDai
+    xdai: {
+      provider: function() {
+        return new HDWalletProvider(process.env.PRIVATEKEY, 'https://dai.poa.network')
+      },
+      network_id: 100,
+      gas: GAS,
+      gasPrice: 1000000000 * GASPRICE,
+      kipDryRun: SKIP_DRY_RUN
     }
   },
   compilers: {
