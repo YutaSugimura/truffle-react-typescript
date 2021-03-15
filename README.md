@@ -37,6 +37,10 @@ Delete /test/simpleStorage.test.ts and /contracts/SimpleStorage.sol and create y
     ```zsh
     # in another terminal (i.e. not in the truffle develop prompt)
     cd client
+    # install dependencies
+    npm install
+    # or
+    yarn install
     npm start
     # or
     yarn start
