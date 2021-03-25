@@ -4,18 +4,20 @@ import { Contract } from 'web3-eth-contract';
 import json from './contracts/SimpleStorage.json';
 import useWeb3 from './hooks/web3';
 
-function App() {
+const App: React.VFC = () => {
   const { isLoading, isWeb3, web3, accounts } = useWeb3();
   const [instance, setInstance] = useState<Contract>();
   const [value, setValue] = useState('');
 
+  const abi: any = json.abi;
+
   useEffect(() => {
     (async() => {
       if(web3 !== null) {
-        const networkId = await web3.eth.net.getId();
+        // const networkId = await web3.eth.net.getId();
         const deployedNetwork = json.networks[3];
         const instance = new web3.eth.Contract(
-          json.abi,
+          abi,
           deployedNetwork && deployedNetwork.address
         );
         setInstance(instance);
